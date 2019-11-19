@@ -12,10 +12,12 @@ theme_set(theme_bw()+theme_linedraw()
 )
 require("ggrepel")
 
-script.dir <- rprojroot::is_r_package
+root <- rprojroot::is_r_package
+root_file <- root$make_fix_file()
 
-#' Plot cerebellar activation map as a function of cerebellar gradients,
-#' as published by Guel et al., 
+#' Plot cerebellar activation map as a function of cerebellar gradients
+#' 
+#' The only function in this package is the plotting function 'gradient_plot'. With default parameters it plots activation in the cerebellar gradient-space, as published by Guell et al. (2018, eLife), however it is easy to use it for plotting with other brain gradients (at leasst two). This is a developer version, use with caution.
 #'
 #' @export
 #'
@@ -32,12 +34,9 @@ script.dir <- rprojroot::is_r_package
 #' gradient_plot(map)
 #' gradient_plot(map, save=T, outbase="test")
 gradient_plot=function(map,
-                       gradient1=file.path(script.dir, "..",
-                                           "data", "wcresult_cerebellumonly_gradient1_suit.nii"),
-                      gradient2=file.path(script.dir, "..",
-                                           "data", "wcresult_cerebellumonly_gradient2_suit.nii"),
-                      template=file.path(script.dir, "..",
-                                         "data", "SUIT.nii"),
+                       gradient1=file.path(root_file("data"), "wcresult_cerebellumonly_gradient1_suit.nii"),
+                      gradient2=file.path(root_file("data"), "wcresult_cerebellumonly_gradient2_suit.nii"),
+                      template=file.path(root_file("data"), "SUIT.nii"),
                       thr=2.3,
                       template.thr=30,
                       slices=c(20, 25, 30, 35, 40, 45, 50, 55, 60),
@@ -45,7 +44,6 @@ gradient_plot=function(map,
                       outbase=""
                       )
 {
-  print(script.dir)
   if (outbase=="")
   {
     outbase=tools::file_path_sans_ext(basename(map))
