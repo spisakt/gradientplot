@@ -10,9 +10,13 @@ The only function in this package is the plotting function 'gradient_plot'. With
 Install package 'gradientplot' simply as an R-package from github:
 
 `install.packages("devtools")`
+
 `library(devtools)`
+
 `install_github("spisakt/gradientplot")`
+
 `library(gradientplot)`
+
 `?gradientplot`
 
 ## Contact
