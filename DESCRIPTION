@@ -1,0 +1,17 @@
+Package: gradientplot
+Title: Plot fMRI activation patterns in gradient space
+Version: 0.1.0.0
+Authors@R: person("Tamas", "Spisak", email = "tamas.spisak@uk-essen.de", role = c("aut", "cre"))
+Description: The only function in this package is the plotting function 'gradient_plot'. With default parameters it plots activation in the cerebellar gradient-space, as published by Guell et al. (2018, eLife), however it is easy to use it for plotting with other brain gradients (at leasst two). This is a developer version, use with caution.
+URL: http://github.com/spisakt/gradientplot
+BugReports: http://github.com/spisakt/gradientplot/issues
+Depends: R (>= 3.2.2)
+License: GPL version 3 or later
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: oro.nifti,
+    neurobase,
+    ggplot2,
+    ggrepel
+Suggests: testthat

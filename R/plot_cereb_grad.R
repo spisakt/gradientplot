@@ -1,5 +1,5 @@
-library(oro.nifti)
-library(neurobase)
+require(oro.nifti)
+require(neurobase)
 # costumize ggplot
 require("ggplot2");
 theme_set(theme_bw()+theme_linedraw()
@@ -12,10 +12,12 @@ theme_set(theme_bw()+theme_linedraw()
 )
 require("ggrepel")
 
-script.dir <- dirname(sys.frame(1)$ofile)
+script.dir <- rprojroot::is_r_package
 
 #' Plot cerebellar activation map as a function of cerebellar gradients,
 #' as published by Guel et al., 
+#'
+#' @export
 #'
 #' @param map activation map to be plotted
 #' @param gradient1 first gradient (recommended to use the default)
@@ -30,11 +32,11 @@ script.dir <- dirname(sys.frame(1)$ofile)
 #' gradient_plot(map)
 #' gradient_plot(map, save=T, outbase="test")
 gradient_plot=function(map,
-                       gradient1=file.path(script.dir,
+                       gradient1=file.path(script.dir, "..",
                                            "data", "wcresult_cerebellumonly_gradient1_suit.nii"),
-                      gradient2=file.path(script.dir,
+                      gradient2=file.path(script.dir, "..",
                                            "data", "wcresult_cerebellumonly_gradient2_suit.nii"),
-                      template=file.path(script.dir,
+                      template=file.path(script.dir, "..",
                                          "data", "SUIT.nii"),
                       thr=2.3,
                       template.thr=30,
@@ -43,6 +45,7 @@ gradient_plot=function(map,
                       outbase=""
                       )
 {
+  print(script.dir)
   if (outbase=="")
   {
     outbase=tools::file_path_sans_ext(basename(map))
@@ -51,10 +54,10 @@ gradient_plot=function(map,
   out.grad=paste0(outbase, "_gradientspace.pdf")
   
   # load volumes
-  map=readNIfTI(map)
-  gradient1=readNIfTI(gradient1)
-  gradient2=readNIfTI(gradient2)
-  template=readNIfTI(template)
+  map=oro.nifti::readNIfTI(map)
+  gradient1=oro.nifti::readNIfTI(gradient1)
+  gradient2=oro.nifti::readNIfTI(gradient2)
+  template=oro.nifti::readNIfTI(template)
   
   # check if lattice is ok
   if (any(dim(map)!=dim(template)))
